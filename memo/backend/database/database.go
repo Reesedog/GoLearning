@@ -1,19 +1,20 @@
 package database
 
 import (
+    "log"
+    "memo/models"
+
     "gorm.io/driver/sqlite"
     "gorm.io/gorm"
 )
 
-var DB *gorm.DB
-
-func ConnectDatabase() {
-    database, err := gorm.Open(sqlite.Open("memo.db"), &gorm.Config{})
+func InitDB() *gorm.DB {
+    db, err := gorm.Open(sqlite.Open("memo.db"), &gorm.Config{})
     if err != nil {
-        panic("Failed to connect to database!")
+        log.Fatal(err)
     }
 
-    database.AutoMigrate(&models.Memo{})
+    db.AutoMigrate(&models.Memo{})
 
-    DB = database
+    return db
 }
