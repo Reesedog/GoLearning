@@ -12,7 +12,7 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
     router := gin.Default()
 
     router.Use(cors.New(cors.Config{
-        AllowOrigins:     []string{"*"},
+        AllowOrigins:     []string{"http://localhost:3000"},
         AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
         AllowHeaders:     []string{"Origin", "Content-Type"},
         ExposeHeaders:    []string{"Content-Length"},
@@ -24,6 +24,7 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 
     router.POST("/memo", memoController.CreateMemo)
     router.GET("/memos", memoController.GetMemos)
+    router.DELETE("/memo/:id", memoController.DeleteMemo)
 
     return router
 }
